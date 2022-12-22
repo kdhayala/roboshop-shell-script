@@ -16,20 +16,14 @@ systemctl restart mongod &>>LOG_FILE
 echo  Status = $?
 
 echo  "Downloding MongoDB Schema"
-curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
+curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip"
 echo  Status = $?
 
 cd /tmp
-unzip mongodb.zip &>>LOG_FILE
-echo  Status = $?
-
+unzip mongodb.zip
 cd mongodb-main
-
-echo "Load Catalogue Service Schema"
-mongo < catalogue.js &>>LOG_FILE
-echo  Status = $?
-
-echo  "Load Catalogue Service Schema"
+mongo < catalogue.js
+mongo < users.js
 mongo <  user.js &>>LOG_FILE
 echo  Status &>>LOG
 
