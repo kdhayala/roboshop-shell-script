@@ -24,7 +24,7 @@ id roboshop &>>${LOG_FILE}
 if [ $? -ne 0]; then
   echo  "Add roboshop Application User"
   useradd roboshop &>>${LOG_FILE}
-  if [ $? -eq 0 ]; then
+if [ $? -eq 0 ]; then
   echo  Status = Success
   else
   echo  Status = Failure
