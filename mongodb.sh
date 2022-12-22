@@ -7,6 +7,9 @@ echo "Installing mongodb"
 yum install -y mongodb-org &>>LOG_FILE
 echo  Status = $?
 
+echo "Update mongodb Listen Address"
+sed -i -e 's/127.0.0.0/0.0.0.0/' /etc/mongodb.conf
+
 echo "Starting  mongodb server"
 systemctl enable  mongod &>>LOG_FILE
 systemctl restart mongod &>>LOG_FILE
