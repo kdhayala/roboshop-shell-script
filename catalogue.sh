@@ -1,5 +1,9 @@
 LOG_FILE=/tmp/cataloguer
 
+ID=$(id -u)
+if [ $ID -ne 0]; then
+  echo You should run the script as a root user.
+
 echo "Setup NodeJS Repos"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG_FILE}
 if [ $? -eq 0 ]; then
