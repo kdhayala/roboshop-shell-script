@@ -20,11 +20,13 @@ else
   echo  Status = Failure
   exit 1
 fi
-echo  "Add roboshop Application User"
-useradd roboshop &>>${LOG_FILE}
-if [ $? -eq 0 ]; then
+id roboshop &>>${LOG_FILE}
+if [ $? -ne 0]; then
+  echo  "Add roboshop Application User"
+  useradd roboshop &>>${LOG_FILE}
+  if [ $? -eq 0 ]; then
   echo  Status = Success
-else
+  else
   echo  Status = Failure
   exit 1
 fi
