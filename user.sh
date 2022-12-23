@@ -5,7 +5,7 @@ source common.sh
 COMPONENT=user
 
 
-  StatusCheck "Update systemD service file"
+  echo "Update systemD service file"
   sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' 's/MONGO_ENDPOINT/redis.roboshop.internal/'  /home/roboshop/user/systemd.service
   StatusCheck $?
 
