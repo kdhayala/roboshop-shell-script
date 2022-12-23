@@ -8,7 +8,7 @@ StatusCheck() {
   if [ $1 -eq 0 ]; then
     echo -e  Status = "\e[32mSuccess\e[0m"
   else
-    echo -e Status = "\e[31mFailure\e\0m"
+    echo -e Status = "\e[31mFailure\e\[0m"
     exit 1
   fi
 }
@@ -46,4 +46,4 @@ NODEJS () {
   echo  "Install NodeJS Dependencies"
   npm install &>>${LOG_FILE}
   StatusCheck $?
-
+}
