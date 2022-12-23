@@ -6,7 +6,6 @@ echo "Setup NodeJS Repos"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG_FILE}
 StatusCheck $?
 
-
 echo "Install NodeJS"
 yum install nodejs -y &>>${LOG_FILE}
 StatusCheck $?
