@@ -12,3 +12,48 @@ StatusCheck() {
     exit 1
   fi
 }
+NODEJS () {
+  echo "Setup NodeJS Repos"
+  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG_FILE}
+  StatusCheck $?
+
+  echo "Install NodeJS"
+  yum install nodejs -y &>>${LOG_FILE}
+  StatusCheck $?
+
+
+  id roboshop &>>${LOG_FILE}
+  if [ $? -ne 0 ]; then
+    echo  "Add roboshop Application ${COMPONENT}"
+    useradd roboshop &>>${LOG_FILE}
+  StatusCheck $?
+  fi
+
+  echo " Download ${COMPONENT} Appplication code"
+  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG_FILE}
+  StatusCheck $?
+
+
+  cd /home/roboshop
+
+  echo "Extracting ${COMPONENT} Application codee"
+  unzip /tmp/${COMPONENT}.zip &>>${LOG_FILE}
+  StatusCheck $?
+
+  mv user-main ${COMPONENT} &>>${LOG_FILE}
+  cd /home/roboshop/${COMPONENT}
+
+  echo  "Install NodeJS Dependencies"
+  npm install &>>${LOG_FILE}
+  StatusCheck $?
+
+  StatusCheck "Update systemD service file"
+  sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' 's/MONGO_ENDPOINT/redis.roboshop.internal/'  /home/roboshop/${COMPONENT}/systemd.service
+  StatusCheck $?
+
+  mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG_FILE}
+  systemctl daemon-reload  &>>${LOG_FILE}
+  systemctl enable ${COMPONENT} &>>${LOG_FILE}
+  systemctl start ${COMPONENT} &>>${LOG_FILE}
+  StatusCheck $
+  }
