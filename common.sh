@@ -1,5 +1,4 @@
 ID=$(id -u)
-ID=$(id -u)
 if [ $ID -ne 0 ]; then
   echo You should run this script as root user or with sudo privileges.
   exit 1
