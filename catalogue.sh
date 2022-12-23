@@ -8,9 +8,9 @@ if [ $ID -ne 0]; then
 echo "Setup NodeJS Repos"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG_FILE}
 if [ $? -eq 0 ]; then
-  echo  Status = Success
+  echo -e  Status = "\e[32mSuccess\e[0m"
 else
-  echo  Status = Failure
+  echo -e Status = "\e[31mFailure\e\0m"
   exit 1
 fi
 
