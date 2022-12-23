@@ -47,13 +47,3 @@ NODEJS () {
   npm install &>>${LOG_FILE}
   StatusCheck $?
 
-  StatusCheck "Update systemD service file"
-  sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' 's/MONGO_ENDPOINT/redis.roboshop.internal/'  /home/roboshop/${COMPONENT}/systemd.service
-  StatusCheck $?
-
-  mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG_FILE}
-  systemctl daemon-reload  &>>${LOG_FILE}
-  systemctl enable ${COMPONENT} &>>${LOG_FILE}
-  systemctl start ${COMPONENT} &>>${LOG_FILE}
-  StatusCheck $
-  }
