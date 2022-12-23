@@ -18,41 +18,44 @@ fi
 echo "Install NodeJS"
 yum install nodejs -y &>>${LOG_FILE}
 if [ $? -eq 0 ]; then
-  echo  Status = Success
+  echo -e  Status = "\e[32mSuccess\e[0m"
 else
-  echo  Status = Failure
+  echo -e Status = "\e[31mFailure\e\0m"
   exit 1
 fi
+
 
 id roboshop &>>${LOG_FILE}
 if [ $? -ne 0]; then
   echo  "Add roboshop Application User"
   useradd roboshop &>>${LOG_FILE}
 if [ $? -eq 0 ]; then
-   echo  Status = Success
- else
-   echo  Status = Failure
+  echo -e  Status = "\e[32mSuccess\e[0m"
+else
+  echo -e Status = "\e[31mFailure\e\0m"
   exit 1
- fi
+fi
+
 fi
 
 echo " Download Catalogure Appplication code"
 curl -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip" &>>${LOG_FILE}
 if [ $? -eq 0 ]; then
-  echo  Status = Success
+  echo -e  Status = "\e[32mSuccess\e[0m"
 else
-  echo  Status = Failure
+  echo -e Status = "\e[31mFailure\e\0m"
   exit 1
 fi
+
 
 cd /home/roboshop
 
 echo "Extracting Catalogure Application codee"
 unzip /tmp/catalogue.zip &>>${LOG_FILE}
 if [ $? -eq 0 ]; then
-  echo  Status = Success
+  echo -e  Status = "\e[32mSuccess\e[0m"
 else
-  echo  Status = Failure
+  echo -e Status = "\e[31mFailure\e\0m"
   exit 1
 fi
 
@@ -62,9 +65,9 @@ cd /home/roboshop/catalogue
 echo  "Install NodeJS Dependencies"
 npm install &>>${LOG_FILE}
 if [ $? -eq 0 ]; then
-  echo  Status = Success
+  echo -e  Status = "\e[32mSuccess\e[0m"
 else
-  echo  Status = Failure
+  echo -e Status = "\e[31mFailure\e\0m"
   exit 1
 fi
 
@@ -73,8 +76,8 @@ systemctl daemon-reload  &>>${LOG_FILE}
 systemctl enable catalogue &>>${LOG_FILE}
 systemctl start catalogue &>>${LOG_FILE}
 if [ $? -eq 0 ]; then
-  echo  Status = Success
+  echo -e  Status = "\e[32mSuccess\e[0m"
 else
-  echo  Status = Failure
+  echo -e Status = "\e[31mFailure\e\0m"
   exit 1
 fi
